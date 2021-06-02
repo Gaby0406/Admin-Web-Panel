@@ -1,9 +1,86 @@
 rules_version = '2';
 service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2021, 5, 19);
+	match /databases/{database}/documents {
+    
+    match /users/{user_id} {
+    	  	allow create: if request.auth != null;
+    	  	allow read: if request.auth != null && isUserRights(request.auth.uid, "hR35ZILf9Rwt3wnDrrsh");
+    	  	allow update: if request.auth != null && isUserRights(request.auth.uid, "0UtNqmZCYB1MH3GslPXl");
+    	  	allow delete: if request.auth != null && isUserRights(request.auth.uid, "oqpO554eXaeJBRnvnQi2");
+    }
+    
+    match /roles/{id} {
+    	  	allow create: if request.auth != null && isUserRights(request.auth.uid, "gpGr95ADMMTJKvFQ7Xb5");
+    	  	allow read: if request.auth != null && isUserRights(request.auth.uid, "KRToONX7Z6j0DmDlJpjP");
+    	  	allow update: if request.auth != null && isUserRights(request.auth.uid, "jMrmj2MHeqQdi6qWAxNf");
+    	  	allow delete: if request.auth != null && isUserRights(request.auth.uid, "pFsu6nUWvkndIqeGEs6d");
+    }
+    
+    match /groups/{id} {
+    	match /{document=**} {
+    	  	allow create: if request.auth != null && isUserRights(request.auth.uid, "1Y97aDvEmKwcb8RFkIsG");
+    	  	allow read: if request.auth != null && isUserRights(request.auth.uid, "uzXS953nO21bSFiSkjyP");
+    	  	allow update: if request.auth != null && isUserRights(request.auth.uid, "4Kx1pQg8LeSlOnfs3OoG");
+    	  	allow delete: if request.auth != null && isUserRights(request.auth.uid, "QoT8RlBL7WvEYRZWsgae");
+      }
+    }
+    
+    match /rights/{id} {
+    	  	allow create: if request.auth != null && isUserRights(request.auth.uid, "ig4qIQPZNqapwsQsiBhK");
+    	  	allow read: if request.auth != null && isUserRights(request.auth.uid, "zHjz9qRptivlZ8rHEPAC");
+    	  	allow update: if request.auth != null && isUserRights(request.auth.uid, "Kdw9mAJsSomzzH3FIqdx");
+    	  	allow delete: if request.auth != null && isUserRights(request.auth.uid, "IohmxcUKUOPtNZ5MruhQ");
+    }
+    
+    match /users_groups/{id} {
+    	match /{document=**} {
+    	  	allow create: if request.auth != null;
+    	  	allow read: if request.auth != null && isUserRights(request.auth.uid, "eQRJnIM763T1W7RUhYQ0");
+    	  	allow update: if request.auth != null && isUserRights(request.auth.uid, "EP185rtjJO4okDf66RNQ");
+    	  	allow delete: if request.auth != null && isUserRights(request.auth.uid, "FPyjHwdCFSiX5ZfcW5la");
+      }
+    }
+    
+    match /users_right/{id} {
+    	match /{document=**} {
+    	  	allow create: if request.auth != null;
+    	  	allow read: if request.auth != null && isUserRights(request.auth.uid, "WCBibB1q5779FVz2kaDI");
+    	  	allow update: if request.auth != null && isUserRights(request.auth.uid, "4fz8DFimdlAoFL6Sgtas");
+    	  	allow delete: if request.auth != null && isUserRights(request.auth.uid, "lqW1YQHkweghU7iLOoxD");
+      }
+    }
+    
+    match /users_roles/{id} {
+    	match /{document=**} {
+    	  	allow create: if request.auth != null;
+    	  	allow read: if request.auth != null && isUserRights(request.auth.uid, "4XnFCLp5WADadFZCADNC");
+    	  	allow update: if request.auth != null && isUserRights(request.auth.uid, "SWpQx1CIJe1q1kr8Uhvc");
+    	  	allow delete: if request.auth != null && isUserRights(request.auth.uid, "1FjwAGwMyVrJ4VckaoJg");
+      }
+    }
+    
+    match /animals/{animal_id} {
+    	match /{document=**} {
+    		  allow create: if request.auth != null && isUserRights(request.auth.uid, "uwtIOVhR4gbF5wwyI2V4");
+    	  	allow read: if request.auth != null && isUserRights(request.auth.uid, "QBCAwvDeqSVKsSOp5tD5");
+    	  	allow update: if request.auth != null && isUserRights(request.auth.uid, "z1TkyZi3OvhhsmeEICBB");
+    	  	allow delete: if request.auth != null && isUserRights(request.auth.uid, "hFu7CNyxUbSb9AEfnb9y");
+    	}
+    }
+  
+  	match /tasks/{task_id} {
+    	match /{document=**} {
+      	allow create: if request.auth != null && isUserRights(request.auth.uid, "0yb2dtGNHIUyRUCzoD0K");
+      	allow read: if request.auth != null && isUserRights(request.auth.uid, "NlXL9KyWGL5vXTxx0rQd");
+      	allow update: if request.auth != null && isUserRights(request.auth.uid, "tzLuwsi95t0yqnLj9M4F");
+      	allow delete: if request.auth != null && isUserRights(request.auth.uid, "Y5DACk8XZH3zy5my5m98");
+    	}
+  	}
+  
+    function isUserRights(userId, rightId) {
+    	let junctionId = userId + "_" + rightId;
+     let path = /databases/$(database)/documents/users_right/$(junctionId);
+     return exists(path);
     }
   }
 }

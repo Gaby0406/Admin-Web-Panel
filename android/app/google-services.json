@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "982648168848",
+    "project_id": "zoo-keeper-c97d8",
+    "storage_bucket": "zoo-keeper-c97d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982648168848:android:dd429bac3ace1289f2d315",
+        "android_client_info": {
+          "package_name": "com.example.flutter2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982648168848-nuvt29oggur43a7v92dc5paj3k05a19q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtp1p8VmV-h39OI8YCXiS-JBqJDJvVhPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982648168848-nuvt29oggur43a7v92dc5paj3k05a19q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "982648168848-dm5t5lrqfi5bt6hp5t14mr46hvo6ipm5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flutter2.zookeeper"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
